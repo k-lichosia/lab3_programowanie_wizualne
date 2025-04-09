@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Data;
 using System.Windows.Forms;
+using System.Xml.Serialization;
+using System.Collections.Generic;
+using System.IO;
 
 namespace lab3_wizualne
 {
@@ -40,7 +43,7 @@ namespace lab3_wizualne
                 string lastIndexString = lastRow["ID"].ToString();
                 lastIndex = int.Parse(lastIndexString);
             }
-            dataTable.Rows.Add(lastIndex+1, Imie, Nazwisko, Wiek, Stanowisko);
+            dataTable.Rows.Add(lastIndex + 1, Imie, Nazwisko, Wiek, Stanowisko);
         }
 
         private void ExportToCSV(DataGridView dataGridView, string filePath)
@@ -122,6 +125,41 @@ namespace lab3_wizualne
                 LoadCSVToDataGridView(openFileDialog1.FileName);
             }
 
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            List<Osoba> listaOsob = new List<Osoba>();
+
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                if (!row.IsNewRow)
+                {
+                    int id = int.Parse(row.Cells["ID"].Value.ToString());
+                    string imie = row.Cells["Imie"].Value.ToString();
+                    string nazwisko = row.Cells["Nazwisko"].Value.ToString();
+                    int wiek = int.Parse(row.Cells["Wiek"].Value.ToString());
+                    string stanowisko = row.Cells["Stanowisko"].Value.ToString();
+
+                    listaOsob.Add(new Osoba(id, imie, nazwisko, wiek, stanowisko));
+                }
+            }
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Pliki XML (*.xml)|*.xml|Wszystkie pliki (*.*)|*.*";
+            saveFileDialog.Title = "Zapisz dane do pliku XML";
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string fileName = saveFileDialog.FileName;
+                XmlSerializer serializer = new XmlSerializer(typeof(List<Osoba>));
+                using (StreamWriter writer = new StreamWriter(fileName))
+                {
+                    serializer.Serialize(writer, listaOsob);
+                }
+
+                MessageBox.Show("Dane zostały zapisane do pliku XML.");
+            }
         }
     }
 }
