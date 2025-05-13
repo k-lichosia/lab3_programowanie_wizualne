@@ -162,7 +162,6 @@ namespace lab3_wizualne
 
         private void button6_Click(object sender, EventArgs e)
         {
-            // Deserializacja z pliku JSON
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Pliki JSON (*.json)|*.json|Wszystkie pliki (*.*)|*.*";
             openFileDialog.Title = "Wybierz plik JSON do wczytania";
@@ -177,7 +176,7 @@ namespace lab3_wizualne
 
                     List<Osoba> listaOsob = JsonSerializer.Deserialize<List<Osoba>>(jsonString);
 
-                    dataTable.Clear(); // Czyścimy tabelę przed dodaniem nowych danych
+                    dataTable.Clear(); 
                     foreach (var osoba in listaOsob)
                     {
                         dataTable.Rows.Add(osoba.ID, osoba.Imie, osoba.Nazwisko, osoba.Wiek, osoba.Stanowisko);
