@@ -33,11 +33,12 @@
             button3 = new Button();
             button4 = new Button();
             button5 = new Button();
+            button6 = new Button();
             SuspendLayout();
             // 
             // button1
             // 
-            button1.Location = new Point(902, 39);
+            button1.Location = new Point(902, 12);
             button1.Name = "button1";
             button1.Size = new Size(112, 34);
             button1.TabIndex = 0;
@@ -47,7 +48,7 @@
             // 
             // button2
             // 
-            button2.Location = new Point(902, 98);
+            button2.Location = new Point(902, 52);
             button2.Name = "button2";
             button2.Size = new Size(112, 34);
             button2.TabIndex = 1;
@@ -57,7 +58,7 @@
             // 
             // button3
             // 
-            button3.Location = new Point(902, 157);
+            button3.Location = new Point(903, 92);
             button3.Name = "button3";
             button3.Size = new Size(112, 62);
             button3.TabIndex = 2;
@@ -67,7 +68,7 @@
             // 
             // button4
             // 
-            button4.Location = new Point(903, 238);
+            button4.Location = new Point(903, 160);
             button4.Name = "button4";
             button4.Size = new Size(112, 64);
             button4.TabIndex = 3;
@@ -77,7 +78,7 @@
             // 
             // button5
             // 
-            button5.Location = new Point(902, 308);
+            button5.Location = new Point(903, 230);
             button5.Name = "button5";
             button5.Size = new Size(112, 61);
             button5.TabIndex = 4;
@@ -85,11 +86,22 @@
             button5.UseVisualStyleBackColor = true;
             button5.Click += button5_Click;
             // 
+            // button6
+            // 
+            button6.Location = new Point(891, 297);
+            button6.Name = "button6";
+            button6.Size = new Size(124, 61);
+            button6.TabIndex = 5;
+            button6.Text = "Deserializacja z XML";
+            button6.UseVisualStyleBackColor = true;
+            button6.Click += button6_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1042, 450);
+            Controls.Add(button6);
             Controls.Add(button5);
             Controls.Add(button4);
             Controls.Add(button3);
@@ -107,5 +119,6 @@
         private Button button3;
         private Button button4;
         private Button button5;
+        private Button button6;
     }
 }

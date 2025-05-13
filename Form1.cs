@@ -161,5 +161,39 @@ namespace lab3_wizualne
                 MessageBox.Show("Dane zostały zapisane do pliku XML.");
             }
         }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Pliki XML (*.xml)|*.xml|Wszystkie pliki (*.*)|*.*";
+            openFileDialog.Title = "Wybierz plik XML do wczytania";
+            openFileDialog.ShowDialog();
+
+            if (openFileDialog.FileName != "")
+            {
+                try
+                {
+                    string fileName = openFileDialog.FileName;
+                    XmlSerializer serializer = new XmlSerializer(typeof(List<Osoba>));
+
+                    using (StreamReader reader = new StreamReader(fileName))
+                    {
+                        List<Osoba> listaOsob = (List<Osoba>)serializer.Deserialize(reader);
+
+                        dataTable.Clear(); 
+                        foreach (var osoba in listaOsob)
+                        {
+                            dataTable.Rows.Add(osoba.ID, osoba.Imie, osoba.Nazwisko, osoba.Wiek, osoba.Stanowisko);
+                        }
+
+                        MessageBox.Show("Dane zostały załadowane z pliku XML.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Błąd podczas ładowania pliku XML: " + ex.Message);
+                }
+            }
+        }
     }
 }
