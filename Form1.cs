@@ -159,5 +159,37 @@ namespace lab3_wizualne
                 MessageBox.Show("Dane zostały zapisane do pliku JSON.");
             }
         }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            // Deserializacja z pliku JSON
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Pliki JSON (*.json)|*.json|Wszystkie pliki (*.*)|*.*";
+            openFileDialog.Title = "Wybierz plik JSON do wczytania";
+            openFileDialog.ShowDialog();
+
+            if (openFileDialog.FileName != "")
+            {
+                try
+                {
+                    string fileName = openFileDialog.FileName;
+                    string jsonString = File.ReadAllText(fileName);
+
+                    List<Osoba> listaOsob = JsonSerializer.Deserialize<List<Osoba>>(jsonString);
+
+                    dataTable.Clear(); // Czyścimy tabelę przed dodaniem nowych danych
+                    foreach (var osoba in listaOsob)
+                    {
+                        dataTable.Rows.Add(osoba.ID, osoba.Imie, osoba.Nazwisko, osoba.Wiek, osoba.Stanowisko);
+                    }
+
+                    MessageBox.Show("Dane zostały załadowane z pliku JSON.");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Błąd podczas ładowania pliku JSON: " + ex.Message);
+                }
+            }
+        }
     }
 }
